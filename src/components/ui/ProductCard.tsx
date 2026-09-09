@@ -91,40 +91,40 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
 
       {/* Card Content */}
-      <div className="p-4 flex flex-col flex-1 justify-between gap-3">
+      <div className="p-3 sm:p-4 flex flex-col flex-1 justify-between gap-2 sm:gap-3">
         <div>
           {/* Category & Hindi subtitle */}
-          <div className="flex items-center justify-between text-xs text-stone-500 mb-1">
-            <span className="font-medium tracking-wide text-[#4E6E4C] uppercase text-[10px]">
+          <div className="flex items-center justify-between text-xs text-stone-500 mb-0.5 sm:mb-1">
+            <span className="font-medium tracking-wide text-[#4E6E4C] uppercase text-[9px] sm:text-[10px]">
               {product.category}
             </span>
             {product.hindiName && (
-              <span className="font-sans text-stone-400 text-xs">{product.hindiName}</span>
+              <span className="font-sans text-stone-400 text-[10px] sm:text-xs truncate max-w-[50%] text-right">{product.hindiName}</span>
             )}
           </div>
 
           {/* Product Name */}
           <Link to={`/product/${product.id}`} className="group-hover:text-[#1C3A27] transition-colors">
-            <h3 className="font-serif text-base font-bold text-stone-900 line-clamp-1 leading-snug group-hover:underline decoration-[#C59B27]/40 underline-offset-4">
+            <h3 className="font-serif text-xs sm:text-base font-bold text-stone-900 line-clamp-1 leading-snug group-hover:underline decoration-[#C59B27]/40 underline-offset-4">
               {product.name}
             </h3>
           </Link>
 
           {/* Rating */}
-          <div className="mt-1.5">
+          <div className="mt-1 sm:mt-1.5">
             <RatingStars rating={product.rating} reviewCount={product.reviewCount} size="sm" />
           </div>
         </div>
 
         {/* Variant Weight Pills Selection */}
         {product.variants.length > 1 && (
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+          <div className="flex items-center gap-1 overflow-x-auto no-scrollbar py-0.5">
             {product.variants.map((v) => (
               <button
                 key={v.weight}
                 type="button"
                 onClick={() => setSelectedVariant(v)}
-                className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-md border transition-all duration-200 ${
+                className={`text-[10px] sm:text-[11px] font-semibold px-2 py-0.5 rounded-md border transition-all duration-200 shrink-0 ${
                   selectedVariant.weight === v.weight
                     ? 'bg-[#1C3A27] text-white border-[#1C3A27] shadow-xs'
                     : 'bg-stone-50 text-stone-700 border-stone-200 hover:border-stone-400'
@@ -137,19 +137,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         )}
 
         {/* Price & Action Footer */}
-        <div className="pt-2 border-t border-stone-100 flex items-center justify-between gap-2">
+        <div className="pt-1.5 sm:pt-2 border-t border-stone-100 flex items-center justify-between gap-1 sm:gap-2">
           <div>
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-base font-bold text-stone-900 font-sans">
+            <div className="flex items-baseline gap-1">
+              <span className="text-xs sm:text-base font-bold text-stone-900 font-sans">
                 ₹{selectedVariant.price}
               </span>
               {selectedVariant.originalPrice && selectedVariant.originalPrice > selectedVariant.price && (
-                <span className="text-xs text-stone-400 line-through">
+                <span className="text-[10px] sm:text-xs text-stone-400 line-through">
                   ₹{selectedVariant.originalPrice}
                 </span>
               )}
             </div>
-            <span className="text-[10px] text-stone-500">Incl. all taxes</span>
+            <span className="text-[9px] sm:text-[10px] text-stone-500 block -mt-0.5">Incl. taxes</span>
           </div>
 
           <motion.button
@@ -157,7 +157,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             whileTap={{ scale: 0.94 }}
             type="button"
             onClick={handleAddToCart}
-            className={`px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm ${
+            className={`px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-semibold flex items-center gap-1 sm:gap-1.5 transition-all shadow-sm ${
               isAdded
                 ? 'bg-emerald-700 text-white'
                 : 'bg-[#1C3A27] hover:bg-[#244833] text-amber-100 hover:text-white shadow-emerald-950/10'
@@ -165,11 +165,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           >
             {isAdded ? (
               <>
-                <Check className="w-3.5 h-3.5 animate-bounce" /> Added
+                <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 animate-bounce" /> <span className="hidden xs:inline">Added</span>
               </>
             ) : (
               <>
-                <ShoppingBag className="w-3.5 h-3.5" /> Add
+                <ShoppingBag className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> Add
               </>
             )}
           </motion.button>
