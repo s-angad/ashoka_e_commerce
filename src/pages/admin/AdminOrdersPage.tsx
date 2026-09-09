@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useAdmin } from '../../context/AdminContext';
 import { Order, OrderStatus } from '../../types';
-import { Search, ShoppingBag, Eye, CheckCircle2, MessageSquare, Truck, Clock, ShieldCheck, MapPin, X } from 'lucide-react';
+import { ImageWithFallback } from '../../components/ui/ImageWithFallback';
+import { Search, Eye, MessageSquare, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const AdminOrdersPage: React.FC = () => {
@@ -139,7 +140,7 @@ export const AdminOrdersPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Order Details Drawer View (Matching Reference Screenshot 1 & 2) */}
+      {/* Order Details Drawer View */}
       <AnimatePresence>
         {isDetailDrawerOpen && selectedOrder && (
           <div className="fixed inset-0 z-50 overflow-hidden bg-stone-900/60 backdrop-blur-xs flex justify-end">
@@ -232,7 +233,11 @@ export const AdminOrdersPage: React.FC = () => {
                     {selectedOrder.items.map((item, idx) => (
                       <div key={idx} className="py-2.5 flex items-center justify-between text-xs">
                         <div className="flex items-center gap-3">
-                          <img src={item.productImage} alt="" className="w-12 h-12 rounded-lg object-cover bg-stone-100 shrink-0" />
+                          <ImageWithFallback
+                            src={item.productImage}
+                            alt={item.productName}
+                            className="w-12 h-12 rounded-lg object-cover bg-stone-100 shrink-0"
+                          />
                           <div>
                             <h5 className="font-bold text-stone-900">{item.productName}</h5>
                             <span className="text-stone-500">{item.variantWeight} × {item.quantity}</span>

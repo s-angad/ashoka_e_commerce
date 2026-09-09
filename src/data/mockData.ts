@@ -5,7 +5,7 @@ export const MOCK_CATEGORIES: CategoryInfo[] = [
     name: 'Herbs',
     slug: 'herbs',
     description: 'Pure, sun-dried traditional Ayurvedic herbs for holistic wellness & immunity.',
-    image: 'https://images.unsplash.com/photo-1546852199-2d7e41700685?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1532336414038-cf19250c5757?auto=format&fit=crop&q=80&w=800',
     iconName: 'Sprout',
     itemCount: 24,
   },
@@ -29,7 +29,7 @@ export const MOCK_CATEGORIES: CategoryInfo[] = [
     name: 'Nuts',
     slug: 'nuts',
     description: 'Raw, roasted & salted premium nuts rich in healthy fats, protein & minerals.',
-    image: 'https://images.unsplash.com/photo-1536591375315-1989938b79d2?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1599599810694-b5b37304c041?auto=format&fit=crop&q=80&w=800',
     iconName: 'Nut',
     itemCount: 15,
   },
@@ -45,7 +45,7 @@ export const MOCK_CATEGORIES: CategoryInfo[] = [
     name: 'Powders',
     slug: 'powders',
     description: 'Micro-milled organic herbal powders for daily health drinks & smoothie bowls.',
-    image: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=800',
     iconName: 'Sparkles',
     itemCount: 14,
   },
@@ -70,9 +70,8 @@ export const MOCK_PRODUCTS: Product[] = [
       { weight: '1kg', price: 649, originalPrice: 799, inStock: true, sku: 'ASH-AML-1000' },
     ],
     images: [
-      'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&q=80&w=1000',
-      'https://images.unsplash.com/photo-1546852199-2d7e41700685?auto=format&fit=crop&q=80&w=1000',
-      'https://images.unsplash.com/photo-1509358271058-acd22cc93898?auto=format&fit=crop&q=80&w=1000',
+      'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=1000',
+      'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&q=80&w=1000',
     ],
     description: 'Ashoka Organic Amla Powder is made from naturally handpicked wild Amlas grown in pristine organic orchards. Rich in Vitamin C, natural antioxidants, and bioflavonoids, it strengthens immunity, enhances digestive fire (Agni), and promotes healthy hair and skin texture.',
     benefits: [
@@ -107,9 +106,9 @@ export const MOCK_PRODUCTS: Product[] = [
       { weight: '1kg', price: 2399, originalPrice: 2899, inStock: true, sku: 'ASH-MAM-1000' },
     ],
     images: [
-      'https://images.unsplash.com/photo-1508061252966-dfd3257938a9?auto=format&fit=crop&q=80&w=1000',
-      'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=1000',
-      'https://images.unsplash.com/photo-1536591375315-1989938b79d2?auto=format&fit=crop&q=80&w=1000',
+      'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&q=80&w=1000',
+      'https://images.unsplash.com/photo-1569913486515-b74bf7751574?auto=format&fit=crop&q=80&w=1000',
+      'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=1000',
     ],
     description: 'Grown exclusively in the high-altitude orchards of Kashmir, Mamra Almonds are concave-shaped and contain up to 50% natural almond oil. Unlike California almonds, Mamra is 100% non-chemical processed, retaining supreme taste, crunch, and nutritional potency for brain health.',
     benefits: [
@@ -144,8 +143,8 @@ export const MOCK_PRODUCTS: Product[] = [
       { weight: '1kg', price: 1699, originalPrice: 2099, inStock: true, sku: 'ASH-MIX-1000' },
     ],
     images: [
-      'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=1000',
-      'https://images.unsplash.com/photo-1536591375315-1989938b79d2?auto=format&fit=crop&q=80&w=1000',
+      'https://images.unsplash.com/photo-1599599810694-b5b37304c041?auto=format&fit=crop&q=80&w=1000',
+      'https://images.unsplash.com/photo-1543339308-43e59d6b73a6?auto=format&fit=crop&q=80&w=1000',
     ],
     description: 'Our signature royal dry fruit mix brings together five premium grade nuts and dried fruits in exact balanced proportions. Lightly nitrogen-flushed packaging ensures seal freshness and zero rancidity.',
     benefits: [
@@ -184,8 +183,8 @@ export const MOCK_PRODUCTS: Product[] = [
       { weight: '500g', price: 799, originalPrice: 999, inStock: true, sku: 'ASH-ASH-500' },
     ],
     images: [
-      'https://images.unsplash.com/photo-1546852199-2d7e41700685?auto=format&fit=crop&q=80&w=1000',
-      'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=1000',
+      'https://images.unsplash.com/photo-1509358271058-acd22cc93898?auto=format&fit=crop&q=80&w=1000',
+      'https://images.unsplash.com/photo-1532336414038-cf19250c5757?auto=format&fit=crop&q=80&w=1000',
     ],
     description: 'Ashwagandha (Withania somnifera), known as Indian Ginseng, is Ayurveda’s premier adaptogen. Ashoka Ashwagandha Root Powder is ethically harvested from mature Nagori roots, rich in active withanolides to relieve stress, improve sleep quality, and enhance physical stamina.',
     benefits: [
@@ -219,8 +218,8 @@ export const MOCK_PRODUCTS: Product[] = [
       { weight: '1kg', price: 1499, originalPrice: 1799, inStock: true, sku: 'ASH-ANJ-1000' },
     ],
     images: [
-      'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=1000',
-      'https://images.unsplash.com/photo-1508061252966-dfd3257938a9?auto=format&fit=crop&q=80&w=1000',
+      'https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&q=80&w=1000',
+      'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&q=80&w=1000',
     ],
     description: 'Hand-strung Afghan Anjeer dried naturally under sunlit orchards. Naturally sweet, soft, chewy, and brimming with dietary fiber, calcium, potassium, and essential iron to combat anemia and promote gut health.',
     benefits: [
@@ -252,7 +251,7 @@ export const MOCK_PRODUCTS: Product[] = [
     ],
     images: [
       'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=1000',
-      'https://images.unsplash.com/photo-1546852199-2d7e41700685?auto=format&fit=crop&q=80&w=1000',
+      'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=1000',
     ],
     description: 'Based on authentic Ministry of Ayush immunity formulations, Ashoka Kadha Mix fuses 15 traditional herbs including Krishna Tulsi, Giloy Stem, Mulethi, Sonth (Dry Ginger), Kali Mirch, Dalchini, and Cloves to fortify throat health and seasonal immunity.',
     benefits: [
@@ -291,6 +290,7 @@ export const MOCK_PRODUCTS: Product[] = [
     ],
     images: [
       'https://images.unsplash.com/photo-1508746829417-e6f548d8d6ed?auto=format&fit=crop&q=80&w=1000',
+      'https://images.unsplash.com/photo-1514733670139-4d87a1941d55?auto=format&fit=crop&q=80&w=1000',
     ],
     description: 'Ashoka Raw Organic Chia Seeds are high-potency super-seeds loaded with plant Omega-3 fatty acids, soluble gel fiber, and complete protein. Ideal for weight management, curbing appetite, and regulating blood glucose balance.',
     benefits: [
@@ -321,7 +321,8 @@ export const MOCK_PRODUCTS: Product[] = [
       { weight: '500g', price: 279, originalPrice: 350, inStock: true, sku: 'ASH-TRI-500' },
     ],
     images: [
-      'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&q=80&w=1000',
+      'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&q=80&w=1000',
+      'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=1000',
     ],
     description: 'Triphala ("Three Fruits") is Classical Ayurveda’s flagship formulation combining Amla, Haritaki, and Bibhitaki in equal measure. It gently tones the digestive tract, clears toxic Ama, and promotes healthy bowel regularity without dependency.',
     benefits: [
@@ -362,7 +363,7 @@ export const MOCK_ORDERS: Order[] = [
       {
         productId: 'prod-1',
         productName: 'Organic Amla Powder',
-        productImage: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&q=80&w=400',
+        productImage: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=400',
         variantWeight: '500g',
         price: 349,
         quantity: 1,
@@ -370,7 +371,7 @@ export const MOCK_ORDERS: Order[] = [
       {
         productId: 'prod-3',
         productName: 'Signature Royal Mixed Dry Fruits',
-        productImage: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=400',
+        productImage: 'https://images.unsplash.com/photo-1599599810694-b5b37304c041?auto=format&fit=crop&q=80&w=400',
         variantWeight: '500g',
         price: 899,
         quantity: 1,
@@ -418,7 +419,7 @@ export const MOCK_ORDERS: Order[] = [
       {
         productId: 'prod-2',
         productName: 'Royal Kashmiri Mamra Almonds',
-        productImage: 'https://images.unsplash.com/photo-1508061252966-dfd3257938a9?auto=format&fit=crop&q=80&w=400',
+        productImage: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&q=80&w=400',
         variantWeight: '500g',
         price: 1249,
         quantity: 2,
@@ -465,7 +466,7 @@ export const MOCK_ORDERS: Order[] = [
       {
         productId: 'prod-4',
         productName: 'Pure Himalayan Ashwagandha Roots Powder',
-        productImage: 'https://images.unsplash.com/photo-1546852199-2d7e41700685?auto=format&fit=crop&q=80&w=400',
+        productImage: 'https://images.unsplash.com/photo-1509358271058-acd22cc93898?auto=format&fit=crop&q=80&w=400',
         variantWeight: '250g',
         price: 429,
         quantity: 1,

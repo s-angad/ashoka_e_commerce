@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useShop } from '../../context/ShopContext';
 import { CartDrawer } from './CartDrawer';
 import { SearchModal } from './SearchModal';
+import { ImageWithFallback } from '../ui/ImageWithFallback';
 import {
   Search,
   ShoppingBag,
@@ -13,7 +14,6 @@ import {
   X,
   ChevronRight,
   PhoneCall,
-  ShieldCheck,
   LayoutDashboard,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -26,17 +26,21 @@ export const Navbar: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const location = useLocation();
-  const navigate = useNavigate();
+
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        setScrollProgress((window.scrollY / totalHeight) * 100);
+      }
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile drawer on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
@@ -52,6 +56,12 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
+      {/* Subtle Scroll Progress Indicator */}
+      <div
+        className="h-[2px] bg-gradient-to-r from-[#1C3A27] via-[#C59B27] to-[#4E6E4C] transition-all duration-75 fixed top-0 left-0 z-50 pointer-events-none opacity-90"
+        style={{ width: `${scrollProgress}%` }}
+      />
+
       {/* Top Announcement Bar */}
       <div className="bg-[#1C3A27] text-amber-100 text-xs py-2 px-4 border-b border-emerald-900/50">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
@@ -91,11 +101,11 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Header */}
+      {/* Main Header with Frosted Glassmorphism */}
       <header
         className={`sticky top-0 z-40 w-full transition-all duration-300 ${
           isScrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-md py-2.5 border-b border-stone-200'
+            ? 'bg-[#FAF8F3]/85 backdrop-blur-2xl shadow-sm py-2.5 border-b border-amber-900/10'
             : 'bg-[#FAF8F3] py-3.5 border-b border-stone-200/80'
         }`}
       >
@@ -112,9 +122,9 @@ export const Navbar: React.FC = () => {
 
           {/* Logo & Brand Title */}
           <Link to="/" className="flex items-center gap-3 group shrink-0">
-            <img
+            <ImageWithFallback
               src="/ashoka-logo.jpg"
-              alt="Ashoka Herbs and Dry Fruits Logo"
+              alt="Ashoka Logo"
               className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-amber-300/60 shadow-xs group-hover:scale-105 transition-transform duration-300 object-cover"
             />
             <div className="flex flex-col">
@@ -165,11 +175,16 @@ export const Navbar: React.FC = () => {
               className="relative p-2 text-stone-700 hover:text-rose-600 hover:bg-stone-100 rounded-xl transition-colors"
               aria-label="Wishlist"
             >
-              <Heart className="w-5 h-5" />
+              <Heart className="w-5 h-5 transition-transform hover:scale-110" />
               {wishlist.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-rose-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-xs">
+                <motion.span
+                  key={wishlist.length}
+                  initial={{ scale: 0.4 }}
+                  animate={{ scale: 1 }}
+                  className="absolute -top-1 -right-1 bg-rose-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-xs"
+                >
                   {wishlist.length}
-                </span>
+                </motion.span>
               )}
             </Link>
 
@@ -179,25 +194,32 @@ export const Navbar: React.FC = () => {
               className="p-2 text-stone-700 hover:text-[#1C3A27] hover:bg-stone-100 rounded-xl transition-colors hidden sm:block"
               aria-label="My Account"
             >
-              <User className="w-5 h-5" />
+              <User className="w-5 h-5 transition-transform hover:scale-110" />
             </Link>
 
             {/* Cart Trigger Button */}
-            <button
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.94 }}
               onClick={() => setIsCartOpen(true)}
-              className="px-3 py-2 rounded-xl bg-[#1C3A27] hover:bg-[#244833] text-amber-100 font-semibold text-xs flex items-center gap-2 shadow-sm transition-all"
+              className="px-3.5 py-2 rounded-xl bg-[#1C3A27] hover:bg-[#244833] text-amber-100 font-semibold text-xs flex items-center gap-2 shadow-md transition-colors"
               aria-label="Open Cart"
             >
               <div className="relative">
                 <ShoppingBag className="w-4 h-4" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2.5 bg-[#C59B27] text-stone-950 font-extrabold text-[10px] w-4 h-4 rounded-full flex items-center justify-center">
+                  <motion.span
+                    key={cartCount}
+                    initial={{ scale: 0.4 }}
+                    animate={{ scale: 1 }}
+                    className="absolute -top-2 -right-2.5 bg-[#C59B27] text-stone-950 font-extrabold text-[10px] w-4 h-4 rounded-full flex items-center justify-center shadow-xs"
+                  >
                     {cartCount}
-                  </span>
+                  </motion.span>
                 )}
               </div>
-              <span className="hidden sm:inline font-sans">₹{cartSubtotal}</span>
-            </button>
+              <span className="hidden sm:inline font-sans font-bold">₹{cartSubtotal}</span>
+            </motion.button>
           </div>
         </div>
       </header>
@@ -216,10 +238,10 @@ export const Navbar: React.FC = () => {
               {/* Drawer Top */}
               <div className="p-4 border-b border-stone-200 flex items-center justify-between bg-[#FAF8F3]">
                 <div className="flex items-center gap-3">
-                  <img
+                  <ImageWithFallback
                     src="/ashoka-logo.jpg"
                     alt="Ashoka Logo"
-                    className="w-10 h-10 rounded-full border border-amber-300"
+                    className="w-10 h-10 rounded-full border border-amber-300 object-cover"
                   />
                   <div>
                     <h4 className="font-serif font-bold text-stone-900 text-sm">Ashoka Herbs</h4>
@@ -284,10 +306,6 @@ export const Navbar: React.FC = () => {
                 <div className="flex items-center gap-2">
                   <PhoneCall className="w-4 h-4 text-ashoka-sage" />
                   <span>Call/WhatsApp: +91 98765 43210</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-emerald-700" />
-                  <span>100% Quality Assured Ayurvedic Sourcing</span>
                 </div>
               </div>
             </motion.div>

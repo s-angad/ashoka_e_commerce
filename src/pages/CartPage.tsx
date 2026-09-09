@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useShop } from '../context/ShopContext';
 import { QuantitySelector } from '../components/ui/QuantitySelector';
+import { ImageWithFallback } from '../components/ui/ImageWithFallback';
 import { ShoppingBag, Trash2, ArrowRight, Tag, ShieldCheck, RotateCcw, Heart } from 'lucide-react';
 import { CartItem } from '../types';
 
@@ -68,9 +69,10 @@ export const CartPage: React.FC = () => {
               className="bg-white p-4 sm:p-5 rounded-2xl border border-stone-200 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
             >
               <div className="flex items-center gap-4">
-                <img
+                <ImageWithFallback
                   src={item.product.images[0]}
                   alt={item.product.name}
+                  category={item.product.category}
                   className="w-20 h-20 rounded-xl object-cover bg-stone-100 shrink-0"
                 />
                 <div>

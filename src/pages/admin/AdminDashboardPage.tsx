@@ -1,16 +1,15 @@
 import React from 'react';
 import { useAdmin } from '../../context/AdminContext';
+import { ImageWithFallback } from '../../components/ui/ImageWithFallback';
+import { CountUpNumber } from '../../components/ui/CountUpNumber';
 import { Link } from 'react-router-dom';
 import {
   IndianRupee,
   ShoppingBag,
   Users,
   AlertTriangle,
-  ArrowUpRight,
   TrendingUp,
-  Boxes,
   Eye,
-  CheckCircle2,
 } from 'lucide-react';
 import {
   AreaChart,
@@ -23,9 +22,8 @@ import {
   PieChart,
   Pie,
   Cell,
-  BarChart,
-  Bar,
 } from 'recharts';
+import { motion } from 'framer-motion';
 
 export const AdminDashboardPage: React.FC = () => {
   const { products, orders, updateStock } = useAdmin();
@@ -48,14 +46,6 @@ export const AdminDashboardPage: React.FC = () => {
     { name: 'Remedies', value: 12, color: '#3B291A' },
   ];
 
-  const topProductsBar = [
-    { name: 'Amla Powder', sales: 420 },
-    { name: 'Mamra Almonds', sales: 380 },
-    { name: 'Royal Mixed Nuts', sales: 310 },
-    { name: 'Ashwagandha', sales: 260 },
-    { name: 'Afghan Anjeer', sales: 210 },
-  ];
-
   return (
     <div className="space-y-8 pb-8">
       {/* Header Banner */}
@@ -75,12 +65,19 @@ export const AdminDashboardPage: React.FC = () => {
         </div>
       </div>
 
-      {/* KPI Cards Grid */}
+      {/* KPI Cards Grid with Stagger & Count-Up Numbers */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div className="bg-white p-5 rounded-2xl border border-stone-200 shadow-xs flex items-center justify-between">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="bg-white p-5 rounded-2xl border border-stone-200 shadow-xs flex items-center justify-between"
+        >
           <div>
             <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider">Total Revenue</span>
-            <h3 className="font-serif text-2xl font-bold text-stone-900 mt-1">₹2,23,600</h3>
+            <h3 className="font-serif text-2xl font-bold text-stone-900 mt-1">
+              <CountUpNumber end={223600} prefix="₹" duration={1.8} />
+            </h3>
             <span className="text-[11px] text-emerald-700 font-semibold flex items-center gap-1 mt-1">
               <TrendingUp className="w-3 h-3" /> +18.4% from last month
             </span>
@@ -88,12 +85,19 @@ export const AdminDashboardPage: React.FC = () => {
           <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-[#1C3A27] flex items-center justify-center font-bold">
             <IndianRupee className="w-6 h-6" />
           </div>
-        </div>
+        </motion.div>
 
-        <div className="bg-white p-5 rounded-2xl border border-stone-200 shadow-xs flex items-center justify-between">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.08 }}
+          className="bg-[#FAF8F3] p-5 rounded-2xl border border-stone-200 shadow-xs flex items-center justify-between"
+        >
           <div>
             <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider">Total Orders</span>
-            <h3 className="font-serif text-2xl font-bold text-stone-900 mt-1">1,833</h3>
+            <h3 className="font-serif text-2xl font-bold text-stone-900 mt-1">
+              <CountUpNumber end={1833} duration={1.6} />
+            </h3>
             <span className="text-[11px] text-emerald-700 font-semibold flex items-center gap-1 mt-1">
               <TrendingUp className="w-3 h-3" /> +12.1% growth
             </span>
@@ -101,31 +105,45 @@ export const AdminDashboardPage: React.FC = () => {
           <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-900 flex items-center justify-center font-bold">
             <ShoppingBag className="w-6 h-6 text-ashoka-sage" />
           </div>
-        </div>
+        </motion.div>
 
-        <div className="bg-white p-5 rounded-2xl border border-stone-200 shadow-xs flex items-center justify-between">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.16 }}
+          className="bg-white p-5 rounded-2xl border border-stone-200 shadow-xs flex items-center justify-between"
+        >
           <div>
             <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider">Total Customers</span>
-            <h3 className="font-serif text-2xl font-bold text-stone-900 mt-1">942</h3>
+            <h3 className="font-serif text-2xl font-bold text-stone-900 mt-1">
+              <CountUpNumber end={942} duration={1.5} />
+            </h3>
             <span className="text-[11px] text-emerald-700 font-semibold flex items-center gap-1 mt-1">
               <TrendingUp className="w-3 h-3" /> +24 new this week
             </span>
           </div>
-          <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-800 flex items-center justify-center font-bold">
+          <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-[#1C3A27] flex items-center justify-center font-bold">
             <Users className="w-6 h-6" />
           </div>
-        </div>
+        </motion.div>
 
-        <div className="bg-white p-5 rounded-2xl border border-stone-200 shadow-xs flex items-center justify-between">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.24 }}
+          className="bg-white p-5 rounded-2xl border border-stone-200 shadow-xs flex items-center justify-between"
+        >
           <div>
             <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider">Low Stock Alerts</span>
-            <h3 className="font-serif text-2xl font-bold text-amber-800 mt-1">{lowStockProducts.length} Items</h3>
+            <h3 className="font-serif text-2xl font-bold text-amber-800 mt-1">
+              <CountUpNumber end={lowStockProducts.length} duration={1.2} suffix=" Items" />
+            </h3>
             <span className="text-[11px] text-amber-800 font-semibold mt-1 block">Requires inventory batch refill</span>
           </div>
           <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-900 flex items-center justify-center font-bold">
-            <AlertTriangle className="w-6 h-6" />
+            <AlertTriangle className="w-6 h-6 text-amber-700" />
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Low Stock Warning Banner & Quick Action */}
@@ -143,7 +161,7 @@ export const AdminDashboardPage: React.FC = () => {
             {lowStockProducts.map((p) => (
               <div key={p.id} className="bg-white p-3 rounded-xl border border-amber-200 flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
-                  <img src={p.images[0]} alt="" className="w-10 h-10 rounded-lg object-cover bg-stone-100 shrink-0" />
+                  <ImageWithFallback src={p.images[0]} alt={p.name} category={p.category} className="w-10 h-10 rounded-lg object-cover bg-stone-100 shrink-0" />
                   <div>
                     <h4 className="font-bold text-stone-900 truncate max-w-[120px]">{p.name}</h4>
                     <span className="text-amber-800 font-bold">Only {p.stock} units left!</span>

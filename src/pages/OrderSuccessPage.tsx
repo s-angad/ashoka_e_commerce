@@ -4,6 +4,7 @@ import { useShop } from '../context/ShopContext';
 import confetti from 'canvas-confetti';
 import { CheckCircle2, Truck, MessageSquare } from 'lucide-react';
 import { OrderItem } from '../types';
+import { motion } from 'framer-motion';
 
 export const OrderSuccessPage: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -14,21 +15,31 @@ export const OrderSuccessPage: React.FC = () => {
 
   useEffect(() => {
     confetti({
-      particleCount: 120,
-      spread: 80,
-      origin: { y: 0.5 },
+      particleCount: 140,
+      spread: 90,
+      origin: { y: 0.4 },
     });
   }, []);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12 space-y-8">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="max-w-3xl mx-auto px-4 py-12 space-y-8"
+    >
       {/* Success Hero Box */}
-      <div className="bg-white p-8 rounded-3xl border border-stone-200 shadow-lg text-center space-y-4 relative overflow-hidden">
-        <div className="w-20 h-20 bg-emerald-100 text-[#1C3A27] rounded-full flex items-center justify-center mx-auto shadow-inner">
+      <div className="bg-white p-8 rounded-3xl border border-stone-200 shadow-xl text-center space-y-4 relative overflow-hidden">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 18, delay: 0.2 }}
+          className="w-20 h-20 bg-emerald-100 text-[#1C3A27] rounded-full flex items-center justify-center mx-auto shadow-inner"
+        >
           <CheckCircle2 className="w-12 h-12" />
-        </div>
+        </motion.div>
 
-        <span className="inline-block bg-amber-100 text-amber-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+        <span className="inline-block bg-amber-100 text-amber-900 text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider shadow-xs">
           ORDER CONFIRMED
         </span>
 
@@ -41,12 +52,14 @@ export const OrderSuccessPage: React.FC = () => {
         </p>
 
         <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
-          <Link
-            to={`/order-tracking?id=${orderId}`}
-            className="px-6 py-3.5 rounded-xl bg-[#1C3A27] text-amber-100 font-bold text-xs shadow-md hover:bg-[#244833] transition-all flex items-center gap-2"
-          >
-            <Truck className="w-4 h-4" /> TRACK ORDER STATUS
-          </Link>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Link
+              to={`/order-tracking?id=${orderId}`}
+              className="px-6 py-3.5 rounded-xl bg-[#1C3A27] text-amber-100 font-bold text-xs shadow-md hover:bg-[#244833] transition-colors flex items-center gap-2"
+            >
+              <Truck className="w-4 h-4" /> TRACK ORDER STATUS
+            </Link>
+          </motion.div>
 
           <Link
             to="/shop"
@@ -99,6 +112,6 @@ export const OrderSuccessPage: React.FC = () => {
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };

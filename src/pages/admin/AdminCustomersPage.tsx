@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useAdmin } from '../../context/AdminContext';
 import { Customer } from '../../types';
-import { Search, MessageSquare, MapPin, ShoppingBag, Eye, Send, CheckCircle2, Phone } from 'lucide-react';
+import { ImageWithFallback } from '../../components/ui/ImageWithFallback';
+import { Search, MapPin, Send, Eye } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const AdminCustomersPage: React.FC = () => {
@@ -72,7 +73,7 @@ export const AdminCustomersPage: React.FC = () => {
                 <tr key={c.id} className="hover:bg-stone-50 transition-colors">
                   <td className="p-4">
                     <div className="flex items-center gap-3">
-                      <img src={c.avatar} alt="" className="w-10 h-10 rounded-full object-cover shrink-0" />
+                      <ImageWithFallback src={c.avatar} alt={c.name} className="w-10 h-10 rounded-full object-cover shrink-0" />
                       <div>
                         <h4 className="font-serif font-bold text-stone-900 text-sm">{c.name}</h4>
                         <span className="text-[10px] text-stone-500">{c.phone}</span>
@@ -110,7 +111,7 @@ export const AdminCustomersPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Customer Profile & WhatsApp Log Drawer (Matching Reference Screenshot 2) */}
+      {/* Customer Profile & WhatsApp Log Drawer */}
       <AnimatePresence>
         {isDetailOpen && selectedCustomer && (
           <div className="fixed inset-0 z-50 overflow-hidden bg-stone-900/60 backdrop-blur-xs flex justify-end">
@@ -123,7 +124,7 @@ export const AdminCustomersPage: React.FC = () => {
             >
               <div className="p-6 border-b border-stone-200 flex items-center justify-between bg-[#FAF8F3]">
                 <div className="flex items-center gap-3">
-                  <img src={selectedCustomer.avatar} alt="" className="w-12 h-12 rounded-full object-cover border-2 border-[#C59B27]" />
+                  <ImageWithFallback src={selectedCustomer.avatar} alt={selectedCustomer.name} className="w-12 h-12 rounded-full object-cover border-2 border-[#C59B27]" />
                   <div>
                     <h3 className="font-serif font-bold text-stone-900 text-lg">{selectedCustomer.name}</h3>
                     <p className="text-xs text-stone-500">{selectedCustomer.location} • {selectedCustomer.phone}</p>

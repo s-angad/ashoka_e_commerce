@@ -11,6 +11,7 @@ import {
   MessageSquare,
   ShieldCheck,
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export const OrderTrackingPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -147,7 +148,14 @@ export const OrderTrackingPage: React.FC = () => {
               {/* Route line */}
               <div className="absolute w-3/4 h-1 bg-emerald-600 rounded-full flex items-center justify-between">
                 <div className="w-4 h-4 rounded-full bg-[#1C3A27] ring-4 ring-emerald-200" title="Dispatch Hub: Meerut" />
-                <div className="w-5 h-5 rounded-full bg-[#C59B27] ring-4 ring-amber-200 animate-pulse" title="Current Location: In Transit" />
+                <div className="relative flex items-center justify-center">
+                  <motion.div
+                    animate={{ scale: [1, 2, 1], opacity: [0.8, 0, 0.8] }}
+                    transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+                    className="absolute w-6 h-6 rounded-full bg-[#C59B27]"
+                  />
+                  <div className="w-5 h-5 rounded-full bg-[#C59B27] ring-4 ring-amber-200 relative z-10" title="Current Location: In Transit" />
+                </div>
                 <div className="w-4 h-4 rounded-full bg-stone-400" title="Destination Address" />
               </div>
 

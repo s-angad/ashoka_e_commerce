@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAdmin } from '../../context/AdminContext';
-import { Search, Plus, Boxes, Upload, AlertTriangle, CheckCircle2, RotateCcw, FileText } from 'lucide-react';
+import { ImageWithFallback } from '../../components/ui/ImageWithFallback';
+import { Search, Plus, Upload, AlertTriangle, CheckCircle2, FileText } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const AdminInventoryPage: React.FC = () => {
@@ -112,7 +113,7 @@ export const AdminInventoryPage: React.FC = () => {
                 <tr key={p.id} className="hover:bg-stone-50 transition-colors">
                   <td className="p-4">
                     <div className="flex items-center gap-3">
-                      <img src={p.images[0]} alt="" className="w-10 h-10 rounded-lg object-cover bg-stone-100 shrink-0" />
+                      <ImageWithFallback src={p.images[0]} alt={p.name} category={p.category} className="w-10 h-10 rounded-lg object-cover bg-stone-100 shrink-0" />
                       <div>
                         <h4 className="font-bold text-stone-900">{p.name}</h4>
                         <span className="text-[10px] text-stone-500">{p.weight}</span>

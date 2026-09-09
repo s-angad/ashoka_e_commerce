@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useShop } from '../../context/ShopContext';
+import { ImageWithFallback } from '../ui/ImageWithFallback';
 import { Search, X, ArrowRight, Tag } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -48,7 +49,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-stone-900/60 backdrop-blur-xs">
+      <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-stone-950/65 backdrop-blur-xl">
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: -10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -117,9 +118,10 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
                       onClick={onClose}
                       className="flex items-center gap-4 py-3 hover:bg-stone-50 px-2 rounded-xl transition-colors group"
                     >
-                      <img
+                      <ImageWithFallback
                         src={p.images[0]}
                         alt={p.name}
+                        category={p.category}
                         className="w-12 h-12 rounded-lg object-cover bg-stone-100 shrink-0"
                       />
                       <div className="flex-1 min-w-0">

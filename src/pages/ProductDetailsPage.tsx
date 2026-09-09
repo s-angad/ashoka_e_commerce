@@ -4,6 +4,7 @@ import { useShop } from '../context/ShopContext';
 import { ProductCard } from '../components/ui/ProductCard';
 import { RatingStars } from '../components/ui/RatingStars';
 import { QuantitySelector } from '../components/ui/QuantitySelector';
+import { ImageWithFallback } from '../components/ui/ImageWithFallback';
 import { MOCK_REVIEWS } from '../data/mockData';
 import { Product, ProductVariant, Review } from '../types';
 import {
@@ -16,6 +17,8 @@ import {
   CheckCircle2,
   Share2,
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { MagneticButton } from '../components/ui/MagneticButton';
 
 export const ProductDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -78,15 +81,16 @@ export const ProductDetailsPage: React.FC = () => {
         {/* Left Column: Image Gallery */}
         <div className="lg:col-span-6 space-y-4">
           {/* Main Preview Image */}
-          <div className="relative aspect-square w-full rounded-3xl overflow-hidden bg-stone-100 border border-stone-200 shadow-sm group">
-            <img
+          <div data-cursor="zoom" className="relative aspect-square w-full rounded-3xl overflow-hidden bg-stone-100 border border-stone-200 shadow-sm group">
+            <ImageWithFallback
               src={product.images[selectedImageIndex] || product.images[0]}
               alt={product.name}
-              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+              category={product.category}
+              className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
             />
 
             {/* Badges */}
-            <div className="absolute top-4 left-4 flex flex-col gap-2">
+            <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
               {product.discountBadge && (
                 <span className="px-3 py-1 rounded-full text-xs font-extrabold bg-[#C59B27] text-stone-950 shadow-xs">
                   {product.discountBadge}
@@ -100,7 +104,7 @@ export const ProductDetailsPage: React.FC = () => {
             </div>
 
             {/* Share & Wishlist overlay */}
-            <div className="absolute top-4 right-4 flex items-center gap-2">
+            <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
               <button
                 onClick={handleShare}
                 className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-stone-700 hover:bg-white transition-colors shadow-xs"
@@ -135,7 +139,7 @@ export const ProductDetailsPage: React.FC = () => {
                       : 'border-stone-200 opacity-70 hover:opacity-100'
                   }`}
                 >
-                  <img src={img} alt="" className="w-full h-full object-cover" />
+                  <ImageWithFallback src={img} alt="" className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>
@@ -223,21 +227,21 @@ export const ProductDetailsPage: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <button
+              <MagneticButton
                 type="button"
                 onClick={handleAddToCart}
-                className="py-3.5 px-6 rounded-xl bg-[#1C3A27] hover:bg-[#244833] text-amber-100 font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                className="py-3.5 px-6 rounded-xl bg-[#1C3A27] hover:bg-[#244833] text-amber-100 font-bold text-sm shadow-md hover:shadow-xl transition-colors flex items-center justify-center gap-2"
               >
                 <ShoppingBag className="w-4 h-4" /> ADD TO CART
-              </button>
+              </MagneticButton>
 
-              <button
+              <MagneticButton
                 type="button"
                 onClick={handleBuyNow}
-                className="py-3.5 px-6 rounded-xl bg-[#C59B27] hover:bg-amber-400 text-stone-950 font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                className="py-3.5 px-6 rounded-xl bg-[#C59B27] hover:bg-amber-400 text-stone-950 font-bold text-sm shadow-md hover:shadow-xl transition-colors flex items-center justify-center gap-2"
               >
                 <Zap className="w-4 h-4" /> BUY IT NOW
-              </button>
+              </MagneticButton>
             </div>
           </div>
 

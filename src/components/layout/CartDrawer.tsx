@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useShop } from '../../context/ShopContext';
 import { QuantitySelector } from '../ui/QuantitySelector';
+import { ImageWithFallback } from '../ui/ImageWithFallback';
 import { ShoppingBag, X, Trash2, ArrowRight, Tag, ShieldCheck, Truck } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { MagneticButton } from '../ui/MagneticButton';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -34,7 +36,6 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
   };
 
   const deliveryFee = cartSubtotal >= FREE_SHIPPING_THRESHOLD || cartSubtotal === 0 ? 0 : 70;
-  const grandTotal = Math.max(cartSubtotal - appliedDiscount + deliveryFee, 0);
 
   const handleCheckoutClick = () => {
     onClose();
@@ -43,7 +44,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 overflow-hidden bg-stone-900/60 backdrop-blur-xs flex justify-end">
+      <div className="fixed inset-0 z-50 overflow-hidden bg-stone-950/65 backdrop-blur-xl flex justify-end">
         <motion.div
           initial={{ x: '100%' }}
           animate={{ x: 0 }}
@@ -123,9 +124,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
                   key={`${item.product.id}-${item.selectedVariant.weight}`}
                   className="flex gap-3 p-3 rounded-xl border border-stone-200/80 bg-stone-50/50 hover:bg-stone-50 transition-colors"
                 >
-                  <img
+                  <ImageWithFallback
                     src={item.product.images[0]}
                     alt={item.product.name}
+                    category={item.product.category}
                     className="w-18 h-18 rounded-lg object-cover bg-stone-200 shrink-0"
                   />
                   <div className="flex-1 min-w-0 flex flex-col justify-between">
@@ -207,17 +209,17 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
                 </div>
                 <div className="flex justify-between text-sm font-bold text-stone-900 pt-2 border-t border-stone-200">
                   <span>Total Amount</span>
-                  <span className="text-base text-[#1C3A27]">₹{grandTotal}</span>
+                  <span className="text-base text-[#1C3A27]">₹{Math.max(cartSubtotal - appliedDiscount + deliveryFee, 0)}</span>
                 </div>
               </div>
 
               {/* Checkout Button */}
-              <button
+              <MagneticButton
                 onClick={handleCheckoutClick}
-                className="w-full py-3.5 bg-[#1C3A27] hover:bg-[#244833] text-amber-100 font-semibold rounded-xl text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all"
+                className="w-full py-3.5 bg-[#1C3A27] hover:bg-[#244833] text-amber-100 font-semibold rounded-xl text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-xl transition-all"
               >
                 Proceed to Checkout <ArrowRight className="w-4 h-4" />
-              </button>
+              </MagneticButton>
 
               <div className="flex items-center justify-center gap-1.5 text-[11px] text-stone-500 pt-1">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-700" />

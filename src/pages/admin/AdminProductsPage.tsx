@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useAdmin } from '../../context/AdminContext';
 import { Product, ProductCategory } from '../../types';
-import { Search, Plus, Edit2, Trash2, X, Image as ImageIcon, Check } from 'lucide-react';
+import { ImageWithFallback } from '../../components/ui/ImageWithFallback';
+import { Search, Plus, Edit2, Trash2, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const AdminProductsPage: React.FC = () => {
@@ -177,7 +178,12 @@ export const AdminProductsPage: React.FC = () => {
                 <tr key={p.id} className="hover:bg-stone-50 transition-colors">
                   <td className="p-4">
                     <div className="flex items-center gap-3">
-                      <img src={p.images[0]} alt="" className="w-12 h-12 rounded-xl object-cover bg-stone-100 shrink-0" />
+                      <ImageWithFallback
+                        src={p.images[0]}
+                        alt={p.name}
+                        category={p.category}
+                        className="w-12 h-12 rounded-xl object-cover bg-stone-100 shrink-0"
+                      />
                       <div>
                         <h4 className="font-serif font-bold text-stone-900 text-sm">{p.name}</h4>
                         <span className="text-[10px] text-stone-500 line-clamp-1">{p.subtitle}</span>

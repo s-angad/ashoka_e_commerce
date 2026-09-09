@@ -1,9 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Outlet, useLocation } from 'react-router-dom';
 import { ShopProvider } from './context/ShopContext';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { ToastContainer } from './components/ui/ToastContainer';
+import { CustomCursor } from './components/ui/CustomCursor';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // Customer Pages
 import { HomePage } from './pages/HomePage';
@@ -27,11 +29,24 @@ import { AdminSettingsPage } from './pages/admin/AdminSettingsPage';
 
 // Customer Shell Layout
 const CustomerLayout = () => {
+  const location = useLocation();
+
   return (
     <div className="min-h-screen flex flex-col justify-between bg-[#FAF8F3]">
+      <CustomCursor />
       <Navbar />
       <main className="flex-1">
-        <Outlet />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <Outlet />
+          </motion.div>
+        </AnimatePresence>
       </main>
       <Footer />
       <ToastContainer />
