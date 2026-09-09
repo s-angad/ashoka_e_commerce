@@ -105,7 +105,7 @@ export const Navbar: React.FC = () => {
       <header
         className={`sticky top-0 z-40 w-full transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#FAF8F3]/85 backdrop-blur-2xl shadow-sm py-2.5 border-b border-amber-900/10'
+            ? 'glass-nav py-2.5'
             : 'bg-[#FAF8F3] py-3.5 border-b border-stone-200/80'
         }`}
       >
@@ -145,13 +145,16 @@ export const Navbar: React.FC = () => {
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`transition-all py-1 border-b-2 ${
-                    isActive
-                      ? 'text-[#1C3A27] border-[#1C3A27]'
-                      : 'border-transparent hover:text-[#1C3A27] hover:border-[#1C3A27]/40'
+                  className={`relative py-1 text-sm font-semibold transition-colors duration-200 group ${
+                    isActive ? 'text-[#1C3A27]' : 'text-stone-700 hover:text-[#1C3A27]'
                   }`}
                 >
-                  {link.name}
+                  <span>{link.name}</span>
+                  <span
+                    className={`absolute bottom-0 left-0 h-[2px] bg-[#1C3A27] transition-all duration-250 ease-out ${
+                      isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                    }`}
+                  />
                 </Link>
               );
             })}
@@ -227,16 +230,16 @@ export const Navbar: React.FC = () => {
       {/* Mobile Drawer Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <div className="fixed inset-0 z-50 lg:hidden bg-stone-900/60 backdrop-blur-xs flex">
+          <div className="fixed inset-0 z-50 lg:hidden bg-stone-950/60 backdrop-blur-md flex">
             <motion.div
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="bg-white w-4/5 max-w-sm h-full shadow-2xl flex flex-col justify-between overflow-y-auto"
+              transition={{ type: 'spring', damping: 25, stiffness: 220 }}
+              className="bg-[#FAF8F3]/95 backdrop-blur-2xl border-r border-[#C59B27]/30 w-4/5 max-w-sm h-full shadow-2xl flex flex-col justify-between overflow-y-auto"
             >
               {/* Drawer Top */}
-              <div className="p-4 border-b border-stone-200 flex items-center justify-between bg-[#FAF8F3]">
+              <div className="p-4 border-b border-stone-200/80 flex items-center justify-between bg-[#FAF8F3]">
                 <div className="flex items-center gap-3">
                   <ImageWithFallback
                     src="/ashoka-logo.jpg"

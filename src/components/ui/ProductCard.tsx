@@ -36,9 +36,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <motion.div
-      whileHover={{ y: -6 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 22 }}
-      className="group bg-white rounded-2xl border border-stone-200/80 shadow-xs hover:shadow-2xl hover:border-stone-300/90 transition-all duration-300 overflow-hidden flex flex-col justify-between relative"
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+      className="group bg-white rounded-2xl border border-stone-200/80 shadow-xs hover:shadow-xl hover:border-stone-300/90 transition-all duration-250 overflow-hidden flex flex-col justify-between relative"
     >
       {/* Top Image Container */}
       <div className="relative aspect-square w-full bg-stone-100/70 overflow-hidden">
@@ -47,7 +47,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             src={product.images[0]}
             alt={product.name}
             category={product.category}
-            className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
+            className="w-full h-full object-cover object-center group-hover:scale-104 transition-transform duration-300 ease-out"
             loading="lazy"
           />
         </Link>

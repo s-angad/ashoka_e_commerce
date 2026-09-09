@@ -50,7 +50,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose }) => {
           animate={{ x: 0 }}
           exit={{ x: '100%' }}
           transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-          className="bg-white w-full max-w-md h-full shadow-2xl flex flex-col justify-between overflow-hidden"
+          className="bg-[#FAF8F3]/95 backdrop-blur-2xl border-l border-[#C59B27]/30 w-full max-w-md h-full shadow-2xl flex flex-col justify-between overflow-hidden"
         >
           {/* Header */}
           <div className="p-4 border-b border-stone-200 flex items-center justify-between bg-stone-50/80">

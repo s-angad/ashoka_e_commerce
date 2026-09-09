@@ -55,7 +55,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: -10 }}
           transition={{ duration: 0.2 }}
-          className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col max-h-[80vh]"
+          className="bg-[#FAF8F3]/95 backdrop-blur-2xl border border-[#C59B27]/30 shadow-2xl w-full max-w-2xl rounded-2xl overflow-hidden flex flex-col max-h-[80vh]"
         >
           {/* Search Input Bar */}
           <form onSubmit={handleSearchSubmit} className="p-4 border-b border-stone-200 flex items-center gap-3">
