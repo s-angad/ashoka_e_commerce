@@ -17,7 +17,7 @@ import {
   Quote,
   Truck,
 } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 
 export const HomePage: React.FC = () => {
   const { products } = useShop();
@@ -30,9 +30,17 @@ export const HomePage: React.FC = () => {
   const heroImageY = useTransform(scrollY, [0, 600], [0, 60]); // 0.15x
   const cardY = useTransform(scrollY, [0, 600], [0, 80]);      // 0.20x
 
-  // Interactive Desktop Mouse Parallax with Lerped Inertia (Glides & Settles)
-  const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
-  const targetMouse = useRef({ x: 0, y: 0 });
+  // Interactive Desktop Mouse Parallax with Fast Spring Inertia (Zero React Re-renders)
+  const rawMouseX = useMotionValue(0);
+  const rawMouseY = useMotionValue(0);
+
+  const springConfig = { stiffness: 450, damping: 28 };
+  const smoothMouseX = useSpring(rawMouseX, springConfig);
+
+  const leafMouseX = useTransform(smoothMouseX, [-1, 1], [10, -10]);
+  const heroImageMouseX = useTransform(smoothMouseX, [-1, 1], [-6, 6]);
+  const cardMouseX = useTransform(smoothMouseX, [-1, 1], [-12, 12]);
+
   const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
@@ -48,29 +56,16 @@ export const HomePage: React.FC = () => {
     const rect = e.currentTarget.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    targetMouse.current = {
-      x: Math.max(-1, Math.min(1, (e.clientX - centerX) / (rect.width / 2))),
-      y: Math.max(-1, Math.min(1, (e.clientY - centerY) / (rect.height / 2))),
-    };
+    const normX = Math.max(-1, Math.min(1, (e.clientX - centerX) / (rect.width / 2)));
+    const normY = Math.max(-1, Math.min(1, (e.clientY - centerY) / (rect.height / 2)));
+    rawMouseX.set(normX);
+    rawMouseY.set(normY);
   };
 
   const handleMouseLeave = () => {
-    targetMouse.current = { x: 0, y: 0 };
+    rawMouseX.set(0);
+    rawMouseY.set(0);
   };
-
-  useEffect(() => {
-    if (isTouchDevice) return;
-    let animId: number;
-    const updateMouse = () => {
-      setMouseOffset((prev) => ({
-        x: prev.x + (targetMouse.current.x - prev.x) * 0.08,
-        y: prev.y + (targetMouse.current.y - prev.y) * 0.08,
-      }));
-      animId = requestAnimationFrame(updateMouse);
-    };
-    animId = requestAnimationFrame(updateMouse);
-    return () => cancelAnimationFrame(animId);
-  }, [isTouchDevice]);
 
   const bestSellers = products.filter((p: Product) => p.isBestSeller).slice(0, 4);
 
@@ -93,7 +88,7 @@ export const HomePage: React.FC = () => {
         <motion.div
           style={{
             y: leafY,
-            x: isTouchDevice ? 0 : mouseOffset.x * -10,
+            x: isTouchDevice ? 0 : leafMouseX,
           }}
           className="absolute top-6 right-[26%] opacity-15 text-amber-200 pointer-events-none hidden lg:block z-0"
           animate={{ rotate: [0, 15, 0] }}
@@ -169,7 +164,7 @@ export const HomePage: React.FC = () => {
               <motion.div
                 style={{
                   y: heroImageY,
-                  x: isTouchDevice ? 0 : mouseOffset.x * 5,
+                  x: isTouchDevice ? 0 : heroImageMouseX,
                 }}
                 initial={{ opacity: 0, scale: 0.95, y: 10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -208,7 +203,7 @@ export const HomePage: React.FC = () => {
             <motion.div
               style={{
                 y: heroImageY,
-                x: isTouchDevice ? 0 : mouseOffset.x * 5,
+                x: isTouchDevice ? 0 : heroImageMouseX,
               }}
               initial={{ opacity: 0, scale: 0.96, x: 15 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
@@ -235,7 +230,7 @@ export const HomePage: React.FC = () => {
               <motion.div
                 style={{
                   y: cardY,
-                  x: isTouchDevice ? 0 : mouseOffset.x * 9,
+                  x: isTouchDevice ? 0 : cardMouseX,
                 }}
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}

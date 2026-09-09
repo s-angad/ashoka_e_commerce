@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion, useSpring } from 'framer-motion';
 
 export const CustomCursor: React.FC = () => {
@@ -7,11 +7,14 @@ export const CustomCursor: React.FC = () => {
   const [cursorMode, setCursorMode] = useState<'default' | 'hover' | 'view'>('default');
   const [cursorText, setCursorText] = useState('');
 
-  // Smooth springs for cursor position
-  const cursorX = useSpring(-100, { stiffness: 400, damping: 28 });
-  const cursorY = useSpring(-100, { stiffness: 400, damping: 28 });
-  const ringX = useSpring(-100, { stiffness: 200, damping: 22 });
-  const ringY = useSpring(-100, { stiffness: 200, damping: 22 });
+  const modeRef = useRef<'default' | 'hover' | 'view'>('default');
+  const textRef = useRef<string>('');
+
+  // Ultra-responsive springs for cursor position (fast, smooth, zero-lag)
+  const cursorX = useSpring(-100, { stiffness: 1200, damping: 45 });
+  const cursorY = useSpring(-100, { stiffness: 1200, damping: 45 });
+  const ringX = useSpring(-100, { stiffness: 650, damping: 30 });
+  const ringY = useSpring(-100, { stiffness: 650, damping: 30 });
 
   useEffect(() => {
     // Disable custom cursor on touch devices or prefers-reduced-motion
@@ -21,6 +24,17 @@ export const CustomCursor: React.FC = () => {
       setIsTouchDevice(true);
       return;
     }
+
+    const updateMode = (newMode: 'default' | 'hover' | 'view', newText: string) => {
+      if (modeRef.current !== newMode) {
+        modeRef.current = newMode;
+        setCursorMode(newMode);
+      }
+      if (textRef.current !== newText) {
+        textRef.current = newText;
+        setCursorText(newText);
+      }
+    };
 
     const handleMouseMove = (e: MouseEvent) => {
       cursorX.set(e.clientX);
@@ -38,30 +52,26 @@ export const CustomCursor: React.FC = () => {
       if (cursorTarget) {
         const mode = cursorTarget.getAttribute('data-cursor');
         if (mode === 'view') {
-          setCursorMode('view');
-          setCursorText('VIEW');
+          updateMode('view', 'VIEW');
           return;
         } else if (mode === 'zoom') {
-          setCursorMode('view');
-          setCursorText('ZOOM');
+          updateMode('view', 'ZOOM');
           return;
         }
       }
 
       const interactiveTarget = target.closest('button, a, [role="button"], input, select');
       if (interactiveTarget) {
-        setCursorMode('hover');
-        setCursorText('');
+        updateMode('hover', '');
       } else {
-        setCursorMode('default');
-        setCursorText('');
+        updateMode('default', '');
       }
     };
 
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     document.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('mouseenter', handleMouseEnter);
 
@@ -76,7 +86,7 @@ export const CustomCursor: React.FC = () => {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
-      {/* Central Cursor Dot */}
+      {/* Central Cursor Dot — direct spring position with fast dimensions transition */}
       <motion.div
         style={{
           x: cursorX,
@@ -84,12 +94,12 @@ export const CustomCursor: React.FC = () => {
           translateX: '-50%',
           translateY: '-50%',
         }}
-        className={`fixed top-0 left-0 rounded-full bg-[#C59B27] transition-all duration-150 ${
+        className={`fixed top-0 left-0 rounded-full bg-[#C59B27] transition-[width,height,opacity,background-color] duration-150 ease-out ${
           cursorMode === 'view' ? 'w-0 h-0 opacity-0' : cursorMode === 'hover' ? 'w-2 h-2 bg-[#1C3A27]' : 'w-2.5 h-2.5'
         }`}
       />
 
-      {/* Trailing Ring / View Pill */}
+      {/* Trailing Ring / View Pill — fluid trailing spring */}
       <motion.div
         style={{
           x: ringX,
@@ -97,7 +107,7 @@ export const CustomCursor: React.FC = () => {
           translateX: '-50%',
           translateY: '-50%',
         }}
-        className={`fixed top-0 left-0 rounded-full border border-[#C59B27]/60 flex items-center justify-center font-bold font-serif text-[10px] tracking-wider transition-all duration-200 ${
+        className={`fixed top-0 left-0 rounded-full border border-[#C59B27]/60 flex items-center justify-center font-bold font-serif text-[10px] tracking-wider transition-[width,height,background-color,border-color,transform] duration-200 ease-out ${
           cursorMode === 'view'
             ? 'w-14 h-14 bg-[#1C3A27]/90 text-amber-200 backdrop-blur-xs border-amber-300/40 shadow-xl scale-100'
             : cursorMode === 'hover'
@@ -110,3 +120,4 @@ export const CustomCursor: React.FC = () => {
     </div>
   );
 };
+

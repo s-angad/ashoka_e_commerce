@@ -21,7 +21,7 @@ export const MagneticButton: React.FC<MagneticButtonProps> = ({
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const springConfig = { stiffness: 350, damping: 25 };
+  const springConfig = { stiffness: 600, damping: 28 };
   const springX = useSpring(x, springConfig);
   const springY = useSpring(y, springConfig);
 
